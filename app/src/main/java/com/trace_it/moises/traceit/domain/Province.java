@@ -1,9 +1,10 @@
+package com.trace_it.moises.traceit.domain;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package componente;
+
 
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class Province {
     private int idProvince;
     private String nameProvince;
-    private ArrayList<Town> townList; 
+    private ArrayList<Town> townList;
     
     public Province(int idProvince, String nameProvince, ArrayList<Town> townList)
     { 

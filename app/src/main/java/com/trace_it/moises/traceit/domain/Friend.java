@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package componente;
+
+
+package com.trace_it.moises.traceit.domain;
 
 import java.util.ArrayList;
 

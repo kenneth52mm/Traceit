@@ -22,9 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by Moisés on 17/06/2015.
- */
+
 public class WsHelper extends AsyncTask<String, Integer, Boolean> {
     private String personas;
     private TextView txtMessage;
