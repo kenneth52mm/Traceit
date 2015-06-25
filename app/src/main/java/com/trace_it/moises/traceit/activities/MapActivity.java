@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.trace_it.moises.traceit.R;
 import com.trace_it.moises.traceit.business.RouteWsHelper;
+import com.trace_it.moises.traceit.domain.Coordinate;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     private GoogleMap map;
     private LocationManager locationManager;
     private ArrayList<LatLng> route = new ArrayList<>();
+    private ArrayList<Coordinate> coords = new ArrayList<>();
     private PolylineOptions polylineOptions;
     private Location lc;
     private boolean RUNNING = false;
@@ -78,6 +80,10 @@ public class MapActivity extends FragmentActivity implements LocationListener {
         map.addPolyline(polylineOptions);
     }
 
+    public void sendData(View v) {
+        routeWsHelper.execute(coords);
+    }
+
     public void startTrace(View v) {
         RUNNING = true;
     }
@@ -94,8 +100,10 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        if (RUNNING)
+        if (RUNNING) {
             route.add(new LatLng(location.getLatitude(), location.getLongitude()));
+            coords.add(new Coordinate(location.getLatitude(), location.getLongitude()));
+        }
 
         if (route.size() == 1)
             centerMapOnMyLocation();
