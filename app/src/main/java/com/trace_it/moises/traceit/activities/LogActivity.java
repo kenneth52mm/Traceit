@@ -1,41 +1,41 @@
 package com.trace_it.moises.traceit.activities;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.trace_it.moises.traceit.R;
-import com.trace_it.moises.traceit.business.WsHelper;
+import com.trace_it.moises.traceit.business.LoginWSHelper;
 
-public class LoginActivity extends ActionBarActivity {
+public class LogActivity extends ActionBarActivity {
 
+    private LoginWSHelper helper = new LoginWSHelper();
     private TextView txtMessage;
-    private WsHelper helper = new WsHelper();
-   // private Button btnLogin;
-
+    private EditText txtUsername;
+    private EditText txtPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        txtMessage = (TextView) findViewById(R.id.txtMessage);
-        helper.execute();
+        setContentView(R.layout.activity_log);
 
-
+        txtMessage = (TextView)findViewById(R.id.TxtMessage);
+        txtUsername = (EditText)findViewById(R.id.TxtUsername);
+        txtPassword = (EditText)findViewById(R.id.TxtPassword);
     }
 
-    public void verDatos(View v) {
-        txtMessage.setText("Datos JSON: " + helper.getPersonas());
+    public void validarUsuario(View v){
+        helper.execute(txtUsername.getText().toString(), txtPassword.getText().toString());
+        txtMessage.setText("Existe: " + helper.getValor());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
+        getMenuInflater().inflate(R.menu.menu_log, menu);
         return true;
     }
 

@@ -19,5 +19,6 @@
     <string name="error_field_required">This field is required</string>
     <string name="title_activity_gps">GPSActivity</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_log">LogActivity</string>
 
 </resources>
