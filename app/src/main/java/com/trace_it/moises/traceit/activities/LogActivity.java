@@ -21,7 +21,7 @@ import org.apache.http.util.EntityUtils;
 
 public class LogActivity extends ActionBarActivity {
 
-    private LoginWSHelper helper = new LoginWSHelper();
+    private LoginWSHelper helper;
     private TextView txtMessage;
     private EditText txtUsername;
     private EditText txtPassword;
@@ -37,6 +37,7 @@ public class LogActivity extends ActionBarActivity {
     }
 
     public void validarUsuario(View v) {
+        helper = new LoginWSHelper();
         helper.execute(txtUsername.getText().toString(), txtPassword.getText().toString());
         // int resp=helper.validate(txtUsername.getText().toString(), txtPassword.getText().toString());
 //        txtMessage.setText("Existe: " + LoginWSHelper.valor);
@@ -86,7 +87,7 @@ public class LogActivity extends ActionBarActivity {
                 HttpResponse resp = client.execute(httpGet);
                 String respStr = EntityUtils.toString(resp.getEntity());
                 resul = Integer.parseInt(respStr);
-                txtMessage.setText("Resultado: "+resul);
+                txtMessage.setText("Resultado: " + resul);
                 Log.i("Existe", " " + resul);
 
             } catch (Exception ex) {

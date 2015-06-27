@@ -7,9 +7,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Chronometer;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,6 +24,7 @@ import com.trace_it.moises.traceit.R;
 import com.trace_it.moises.traceit.business.RouteWsHelper;
 import com.trace_it.moises.traceit.domain.Coordinate;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 
@@ -33,6 +37,11 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     private Location lc;
     private boolean RUNNING = false;
     private RouteWsHelper routeWsHelper = new RouteWsHelper();
+    private double distance;
+    private Time time;
+    private TextView txtDistance;
+    private Chronometer chronometer;
+    private long speed;
 
     /**
      * @param savedInstanceState
@@ -41,6 +50,8 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_activity);
+        txtDistance = (TextView) findViewById(R.id.txtDistance);
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 5, this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -50,6 +61,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
         lc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         getCurrentLocation();
     }
+
 
     public void getCurrentLocation() {
 
@@ -78,7 +90,12 @@ public class MapActivity extends FragmentActivity implements LocationListener {
         polylineOptions.width(12);
         polylineOptions.color(Color.RED);
         map.addPolyline(polylineOptions);
+        LatLng start = route.get(0);
+        LatLng end = route.get(route.size() - 1);
+        distance = getDistance(start.latitude, start.longitude, end.latitude, end.longitude);
+        txtDistance.setText("Distancia: " + distance);
     }
+
 
     public void sendData(View v) {
         routeWsHelper.execute(coords);
@@ -86,16 +103,30 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 
     public void startTrace(View v) {
         RUNNING = true;
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
+
     }
 
     public void stopTrace(View v) {
         RUNNING = false;
+        chronometer.stop();
+        Log.i("Tiempo ",""+chronometer.getBase());
+        speed = ((long) distance / chronometer.getBase())/1000;
+        Log.i("Velocidad ", "" + speed);
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
+    }
+
+    public double getDistance(double startOne, double endOne, double startTwo, double endTwo) {
+        float[] result = new float[1];
+        Location.distanceBetween(startOne / 1e6, startTwo / 1e6, endOne / 1e6, endTwo / 1e6, result);
+        Log.i("Distance ", "" + result[0]);
+        return result[0];
     }
 
     @Override
@@ -107,6 +138,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 
         if (route.size() == 1)
             centerMapOnMyLocation();
+
     }
 
     @Override
