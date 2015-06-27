@@ -15,8 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_toEndOf="@+id/stop"
+        android:layout_toRightOf="@+id/stop"
         android:onClick="verRuta"
         android:text="Ver ruta" />
 
@@ -31,13 +31,22 @@
         android:text="Iniciar" />
 
     <Button
+        android:id="@+id/stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Detener"
-        android:id="@+id/stop"
-        android:onClick="stopTrace"
         android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/begin"
         android:layout_toRightOf="@+id/begin"
-        android:layout_toEndOf="@+id/begin" />
+        android:onClick="stopTrace"
+        android:text="Detener" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="Guardar" />
 
 </RelativeLayout>

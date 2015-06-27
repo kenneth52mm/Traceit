@@ -29,36 +29,42 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * Created by Daniel on 25/06/2015.
  */
-public class LoginWSHelper extends AsyncTask<String, Integer, Boolean> {
+public class LoginWSHelper extends AsyncTask<String, Integer, Integer> {
 
-    private Integer valor;
+    public static int valor=0;
 
-    public Integer getValor() {
+    public int getValor() {
         return valor;
     }
 
-    public void setValor(Integer valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
 
     @Override
-    protected Boolean doInBackground(String... params) {
-        boolean resul = true;
+    protected Integer doInBackground(String... params) {
+       int resul=0;
         HttpClient client = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet("http://orion-group.azurewebsites.net/Api/Login/" + params[0]+ "/" + params[1]);
         httpGet.setHeader("content-type", "application/json");
         try {
             HttpResponse resp = client.execute(httpGet);
             String respStr = EntityUtils.toString(resp.getEntity());
-            int id = Integer.parseInt(respStr);
-            setValor(id);
-            Log.i("Existe", " " + id );
+            resul= Integer.parseInt(respStr);
+            valor=resul;
+            Log.i("Existe", " " + resul );
 
         } catch (Exception ex) {
             Log.e("ServicioRest", "Error!", ex);
-            resul = false;
+            resul = 0;
         }
         return resul;
+    }
+
+    @Override
+    protected void onPostExecute(Integer integer) {
+        Log.i("Valor ",""+integer);
+        setValor(integer);
     }
 
     private static String IV = "IV_VALUE_16_BYTE";
