@@ -13,7 +13,7 @@
         android:inputType="textPersonName"
         android:hint="@string/user_label"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/TxtUsername"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="79dp"
@@ -26,19 +26,23 @@
         android:inputType="textPassword"
         android:hint="@string/pass_label"
         android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_below="@+id/editText"
+        android:id="@+id/TxtPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
         android:textColorHint="#757575"
         android:textColor="#757575" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/TxtMessage" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="60dp"
         android:text="@string/login_label"
         android:id="@+id/BtnLogin"
-        android:layout_below="@+id/editText2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="58dp"
         android:onClick="validarUsuario"/>
@@ -48,7 +52,6 @@
         android:layout_height="60dp"
         android:text="@string/register_label"
         android:id="@+id/BtnRegister"
-        android:layout_below="@+id/BtnLogin"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp" />
 </LinearLayout>
