@@ -52,7 +52,7 @@ public class LoginWSHelper extends AsyncTask<String, Integer, Integer> {
             String respStr = EntityUtils.toString(resp.getEntity());
             resul= Integer.parseInt(respStr);
             valor=resul;
-            Log.i("Existe", " " + resul );
+            Log.i("Resultado", " " + resul );
 
         } catch (Exception ex) {
             Log.e("ServicioRest", "Error!", ex);
