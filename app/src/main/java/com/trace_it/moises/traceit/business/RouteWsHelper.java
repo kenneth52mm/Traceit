@@ -24,7 +24,7 @@ public class RouteWsHelper extends AsyncTask<ArrayList<Coordinate>, String, Stri
     @Override
     protected String doInBackground(ArrayList<Coordinate>... params) {
         HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost("");
+        HttpPost post = new HttpPost("http://orion-group.azurewebsites.net/Api/route/save/");
         post.setHeader("content-type", "application/json");
         try {
             JSONArray jsonArray=new JSONArray(params[0]);

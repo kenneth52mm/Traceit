@@ -38,7 +38,6 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     private boolean RUNNING = false;
     private RouteWsHelper routeWsHelper = new RouteWsHelper();
     private double distance;
-    private Time time;
     private TextView txtDistance;
     private Chronometer chronometer;
     private long speed;
@@ -53,7 +52,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
         txtDistance = (TextView) findViewById(R.id.txtDistance);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 5, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         map = mapFragment.getMap();
         map.setMyLocationEnabled(true);
@@ -62,6 +61,10 @@ public class MapActivity extends FragmentActivity implements LocationListener {
         getCurrentLocation();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     public void getCurrentLocation() {
 
@@ -92,10 +95,22 @@ public class MapActivity extends FragmentActivity implements LocationListener {
         map.addPolyline(polylineOptions);
         LatLng start = route.get(0);
         LatLng end = route.get(route.size() - 1);
-        distance = getDistance(start.latitude, start.longitude, end.latitude, end.longitude);
-        txtDistance.setText("Distancia: " + distance);
+        distance = getDistance(start.latitude, end.latitude, start.longitude, end.longitude);
+        float[] distance2=new float[1];
+                Location.distanceBetween(start.latitude,start.longitude,end.latitude,end.longitude,distance2);
+        txtDistance.setText("Distancia: " + distance/1000+" otra:"+distance2[0]/1000);
     }
 
+    public double getDistance(double startOne, double endOne, double startTwo, double endTwo) {
+        Location locationA = new Location("");
+        locationA.setLatitude(startOne);
+        locationA.setLongitude(startTwo);
+        Location locationB = new Location("");
+        locationB.setLatitude(endOne);
+        locationB.setLongitude(endTwo);
+        double distance = locationA.distanceTo(locationB);
+        return distance;
+    }
 
     public void sendData(View v) {
         routeWsHelper.execute(coords);
@@ -111,8 +126,8 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     public void stopTrace(View v) {
         RUNNING = false;
         chronometer.stop();
-        Log.i("Tiempo ",""+chronometer.getBase());
-        speed = ((long) distance / chronometer.getBase())/1000;
+        Log.i("Tiempo ", "" + chronometer.getBase());
+        speed = ((long) distance / chronometer.getBase()) / 1000;
         Log.i("Velocidad ", "" + speed);
     }
 
@@ -122,22 +137,16 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 
     }
 
-    public double getDistance(double startOne, double endOne, double startTwo, double endTwo) {
-        float[] result = new float[1];
-        Location.distanceBetween(startOne / 1e6, startTwo / 1e6, endOne / 1e6, endTwo / 1e6, result);
-        Log.i("Distance ", "" + result[0]);
-        return result[0];
-    }
-
     @Override
     public void onLocationChanged(Location location) {
         if (RUNNING) {
             route.add(new LatLng(location.getLatitude(), location.getLongitude()));
             coords.add(new Coordinate(location.getLatitude(), location.getLongitude()));
         }
-
-        if (route.size() == 1)
+        if (route.size() == 1) {
             centerMapOnMyLocation();
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 5, this);
+        }
 
     }
 
