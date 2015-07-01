@@ -1,50 +1,24 @@
 package com.trace_it.moises.traceit.activities;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.trace_it.moises.traceit.R;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-
-public class SplashScreenActivity extends Activity {
-
-    private static final long SPLASH_SCREEN_DELAY = 3500;
+public class RegisterActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_splash_screen);
-
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-
-                Intent mainIntent = new Intent().setClass(
-                        SplashScreenActivity.this, LogActivity.class);
-                startActivity(mainIntent);
-                finish();
-            }
-        };
-
-        Timer timer = new Timer();
-        timer.schedule(task, SPLASH_SCREEN_DELAY);
-
+        setContentView(R.layout.activity_register);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_splash_screen, menu);
+        getMenuInflater().inflate(R.menu.menu_register, menu);
         return true;
     }
 

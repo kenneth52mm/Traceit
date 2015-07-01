@@ -1,52 +1,57 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/windowBackground"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.trace_it.moises.traceit.activities.LogActivity">
-
+    >
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
+        android:hint="@string/user_label"
         android:ems="10"
         android:id="@+id/TxtUsername"
-        android:hint="Usuario"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="79dp"
+        android:textColorHint="#757575"
+        android:textColor="#757575" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
+        android:hint="@string/pass_label"
         android:ems="10"
         android:id="@+id/TxtPassword"
-        android:hint="Contrasena"
-        android:layout_marginTop="45dp"
-        android:layout_below="@+id/TxtUsername"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:textColorHint="#757575"
+        android:textColor="#757575" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/TxtMessage" />
 
     <Button
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:layout_below="@+id/TxtPassword"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="42dp"
+        android:layout_height="60dp"
+        android:text="@string/login_label"
+        android:id="@+id/BtnLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
         android:onClick="validarUsuario"/>
 
-    <TextView
-        android:id="@+id/TxtMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true" />
-</RelativeLayout>
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:text="@string/register_label"
+        android:id="@+id/BtnRegister"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp" />
+</LinearLayout>

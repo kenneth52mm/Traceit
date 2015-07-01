@@ -1,5 +1,6 @@
 package com.trace_it.moises.traceit.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,6 +28,8 @@ public class LogActivity extends ActionBarActivity {
     private EditText txtUsername;
     private EditText txtPassword;
 
+    private Button btnRegister;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,16 @@ public class LogActivity extends ActionBarActivity {
         txtMessage = (TextView) findViewById(R.id.TxtMessage);
         txtUsername = (EditText) findViewById(R.id.TxtUsername);
         txtPassword = (EditText) findViewById(R.id.TxtPassword);
+
+        btnRegister = (Button)findViewById(R.id.BtnRegister);
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void validarUsuario(View v) {
