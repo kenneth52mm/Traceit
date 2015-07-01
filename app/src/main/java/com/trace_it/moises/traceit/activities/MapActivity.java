@@ -96,9 +96,9 @@ public class MapActivity extends FragmentActivity implements LocationListener {
         LatLng start = route.get(0);
         LatLng end = route.get(route.size() - 1);
         distance = getDistance(start.latitude, end.latitude, start.longitude, end.longitude);
-        float[] distance2=new float[1];
-                Location.distanceBetween(start.latitude,start.longitude,end.latitude,end.longitude,distance2);
-        txtDistance.setText("Distancia: " + distance/1000+" otra:"+distance2[0]/1000);
+        float[] distance2 = new float[1];
+        Location.distanceBetween(start.latitude, start.longitude, end.latitude, end.longitude, distance2);
+        txtDistance.setText("Distancia: " + distance / 1000 + " otra:" + getTotalDistance());
     }
 
     public double getDistance(double startOne, double endOne, double startTwo, double endTwo) {
@@ -110,6 +110,22 @@ public class MapActivity extends FragmentActivity implements LocationListener {
         locationB.setLongitude(endTwo);
         double distance = locationA.distanceTo(locationB);
         return distance;
+    }
+
+    private double getTotalDistance() {
+        double totalDistance = 0.0;
+        for (int i = 0; i < route.size()-1; i++) {
+            LatLng start = route.get(i);
+            LatLng end = route.get(i + 1);
+            Location locationA = new Location("");
+            locationA.setLatitude(start.latitude);
+            locationA.setLongitude(start.longitude);
+            Location locationB = new Location("");
+            locationB.setLatitude(end.latitude);
+            locationB.setLongitude(end.longitude);
+            totalDistance += locationA.distanceTo(locationB);
+        }
+        return totalDistance;
     }
 
     public void sendData(View v) {
@@ -148,6 +164,18 @@ public class MapActivity extends FragmentActivity implements LocationListener {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 5, this);
         }
 
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        chronometer.setBase(SystemClock.elapsedRealtime());
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        chronometer.setBase(SystemClock.elapsedRealtime());
     }
 
     @Override

@@ -37,7 +37,8 @@ To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This dis
         </activity>
         <activity
             android:name=".activities.MapActivity"
-            android:label="Map">
+            android:label="Map"
+            android:screenOrientation="portrait">
 
         </activity>
         <activity
