@@ -30,7 +30,7 @@ public class SplashScreenActivity extends Activity {
             public void run() {
 
                 Intent mainIntent = new Intent().setClass(
-                        SplashScreenActivity.this, LogActivity.class);
+                        SplashScreenActivity.this, PrincipalActivity.class);
                 startActivity(mainIntent);
                 finish();
             }

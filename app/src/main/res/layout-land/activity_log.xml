@@ -17,7 +17,7 @@
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:inputType="textPersonName"
             android:hint="@string/user_label"
             android:ems="10"
             android:id="@+id/TxtUsername"
@@ -29,7 +29,7 @@
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:hint="@string/pass_label"
             android:ems="10"
             android:id="@+id/TxtPassword"
